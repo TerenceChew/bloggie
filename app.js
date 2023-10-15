@@ -16,18 +16,18 @@ app.set("view engine", "ejs");
 
 // Routes
 app.get("/", (req, res) => {
-  res.render("index");
+  res.render("index", { title: "Home" });
 });
 
 app.get("/create", (req, res) => {
-  res.render("create");
+  res.render("create", { title: "Create New Blog" });
 });
 
 app.get("/about", (req, res) => {
-  res.render("about");
+  res.render("about", { title: "About" });
 });
 
 // 404 page
 app.use((req, res) => {
-  res.status(404).render("404");
+  res.status(404).render("404", { title: "404" });
 });
