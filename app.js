@@ -16,10 +16,14 @@ app.set("view engine", "ejs");
 
 // Routes
 app.get("/", (req, res) => {
+  res.redirect("/blogs");
+});
+
+app.get("/blogs", (req, res) => {
   res.render("index", { title: "Home" });
 });
 
-app.get("/create", (req, res) => {
+app.get("/blogs/create", (req, res) => {
   res.render("create", { title: "Create New Blog" });
 });
 
