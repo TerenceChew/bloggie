@@ -1,15 +1,23 @@
 const express = require("express");
+const mongoose = require("mongoose");
 
-// App setup
+// App & database setup
 const app = express();
 const PORT = 3000;
+const dbURI =
+  "mongodb+srv://terencecws:test123@cluster0.82suigq.mongodb.net/bloggie?retryWrites=true&w=majority";
 
-app.listen(PORT, err => {
-  if (err) {
-    console.log("Error in server setup");
-  }
-  console.log("Listening to port", PORT);
-});
+mongoose
+  .connect(dbURI)
+  .then(connection => {
+    app.listen(PORT, err => {
+      if (err) {
+        console.log("Error in server setup");
+      }
+      console.log("Listening to port", PORT);
+    });
+  })
+  .catch(err => console.log(err));
 
 // View engine setup
 app.set("view engine", "ejs");
