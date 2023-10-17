@@ -5,7 +5,15 @@
   <%- include("./partials/header.ejs") %>
 
   <main>
-    Form
+    <form class="form-create-blog" action="/blogs/create" method="POST">
+      <label for="title">Blog Title:</label>
+      <input id="title" type="text" name="title" required>
+
+      <label for="body">Blog Body:</label>
+      <textarea id="body" name="body" required></textarea>
+
+      <button>Submit</button>
+    </form>
   </main>
   
   <%- include("./partials/footer.ejs") %>

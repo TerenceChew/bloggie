@@ -20,6 +20,9 @@ mongoose
 // View engine setup
 app.set("view engine", "ejs");
 
+// Middlewares
+app.use(express.urlencoded({ extended: true }));
+
 // Routes
 app.get("/", (req, res) => {
   res.redirect("/blogs");
@@ -29,8 +32,25 @@ app.get("/blogs", (req, res) => {
   Blog.find()
     .sort({ createdAt: -1 })
     .then(result => {
-      // res.send(result)
       res.render("index", { title: "Home", blogs: result });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+});
+
+app.get("/blogs/create", (req, res) => {
+  res.render("create", { title: "Create New Blog" });
+});
+
+app.post("/blogs/create", (req, res) => {
+  const { body } = req;
+  const blog = new Blog(body);
+
+  blog
+    .save()
+    .then(result => {
+      res.redirect("/blogs");
     })
     .catch(err => {
       console.log(err);
@@ -48,10 +68,6 @@ app.get("/blogs/:id", (req, res, next) => {
       console.log(err);
       next();
     });
-});
-
-app.get("/blogs/create", (req, res) => {
-  res.render("create", { title: "Create New Blog" });
 });
 
 app.get("/about", (req, res) => {
