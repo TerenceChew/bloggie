@@ -10,10 +10,7 @@ const dbURI =
 mongoose
   .connect(dbURI)
   .then(connection => {
-    app.listen(PORT, err => {
-      if (err) {
-        console.log("Error in server setup");
-      }
+    app.listen(PORT, () => {
       console.log("Listening to port", PORT);
     });
   })
