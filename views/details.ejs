@@ -12,10 +12,25 @@
       <div class="blog-content">
         <%= blog.body %>
       </div>
-      <button>DELETE</button>
+      <button class="delete-btn" data-blog-id="<%= blog._id %>">DELETE</button>
     </div>
   </main>
 
   <%- include("./partials/footer.ejs") %>
+
+  <script>
+    const delBtn = document.querySelector(".delete-btn");
+
+    delBtn.addEventListener("click", (e) => {
+      const endpoint = `/blogs/${delBtn.dataset.blogId}`;
+
+      fetch(endpoint, {
+        method: "DELETE"
+      })
+      .then(response => response.json())
+      .then(data => window.location.href = data.redirect)
+      .catch(console.log);
+    });
+  </script>
 </body>
 </html>
