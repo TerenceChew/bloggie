@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const Blog = require("./models/blog");
 
 // App & database setup
 const app = express();
@@ -25,7 +26,14 @@ app.get("/", (req, res) => {
 });
 
 app.get("/blogs", (req, res) => {
-  res.render("index", { title: "Home" });
+  Blog.find()
+    .sort({ createdAt: -1 })
+    .then(result => {
+      res.render("index", { title: "Home", blogs: result });
+    })
+    .catch(err => {
+      console.log(err);
+    });
 });
 
 app.get("/blogs/create", (req, res) => {
