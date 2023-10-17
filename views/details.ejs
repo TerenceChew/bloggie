@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("./partials/head.ejs") %>
+<body>
+  <%- include("./partials/header.ejs") %>
+  
+  <main>
+    <div class="blog-detail">
+      <h2 class="blog-title">
+        <%= blog.title %>
+      </h2>
+      <div class="blog-content">
+        <%= blog.body %>
+      </div>
+      <button>DELETE</button>
+    </div>
+  </main>
+
+  <%- include("./partials/footer.ejs") %>
+</body>
+</html>

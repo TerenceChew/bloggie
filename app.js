@@ -29,10 +29,24 @@ app.get("/blogs", (req, res) => {
   Blog.find()
     .sort({ createdAt: -1 })
     .then(result => {
+      // res.send(result)
       res.render("index", { title: "Home", blogs: result });
     })
     .catch(err => {
       console.log(err);
+    });
+});
+
+app.get("/blogs/:id", (req, res, next) => {
+  const { id } = req.params;
+
+  Blog.findById(id)
+    .then(result => {
+      res.render("details", { title: "Blog Details", blog: result });
+    })
+    .catch(err => {
+      console.log(err);
+      next();
     });
 });
 

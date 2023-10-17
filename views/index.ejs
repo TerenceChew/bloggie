@@ -10,14 +10,14 @@
     <section class="blogs-container">
       <% if (blogs.length > 0) { %>
         <% blogs.forEach(blog => { %>
-          <div class="blog">
+          <a class="blog" href="/blogs/<%= blog._id %>">
             <h3>
               <%= blog.title %>
             </h3>
             <p>
               <%= blog.body %>
             </p>
-          </div>
+          </a>
         <% }); %>
       <% } else { %>
         <p>There are no blogs to display ...</p>
