@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const Blog = require("./models/blog");
+const blogController = require("./controllers/blogController");
 
 // App & database setup
 const app = express();
@@ -25,92 +25,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Routes
-app.get("/", (req, res) => {
-  res.redirect("/blogs");
-});
-
-app.get("/blogs", (req, res) => {
-  Blog.find()
-    .sort({ createdAt: -1 })
-    .then(result => {
-      res.render("index", { title: "Home", blogs: result });
-    })
-    .catch(err => {
-      console.log(err);
-    });
-});
-
-app.get("/blogs/create", (req, res) => {
-  res.render("create", { title: "Create New Blog" });
-});
-
-app.post("/blogs/create", (req, res) => {
-  const { body } = req;
-  const blog = new Blog(body);
-
-  blog
-    .save()
-    .then(result => {
-      res.redirect("/blogs");
-    })
-    .catch(err => {
-      console.log(err);
-    });
-});
-
-app.get("/blogs/:id", (req, res, next) => {
-  const { id } = req.params;
-
-  Blog.findById(id)
-    .then(result => {
-      res.render("details", { title: "Blog Details", blog: result });
-    })
-    .catch(err => {
-      console.log(err);
-      next();
-    });
-});
-
-app.delete("/blogs/:id", (req, res) => {
-  const { id } = req.params;
-
-  Blog.findByIdAndDelete(id)
-    .then(result => {
-      res.json({ redirect: "/blogs" });
-    })
-    .catch(err => {
-      console.log(err);
-    });
-});
-
-app.get("/blogs/edit/:id", (req, res) => {
-  const { id } = req.params;
-
-  Blog.findById(id)
-    .then(result => {
-      res.render("edit", { title: "Edit Blog", blog: result });
-    })
-    .catch(err => {
-      console.log(err);
-    });
-});
-
-app.patch("/blogs/edit/:id", (req, res) => {
-  const { id } = req.params;
-  const newFields = req.body;
-
-  Blog.findByIdAndUpdate(id, newFields)
-    .then(result => {
-      res.json({ redirect: `/blogs/${id}` });
-    })
-    .catch(err => {
-      console.log(err);
-    });
-});
-
-app.get("/about", (req, res) => {
-  res.render("about", { title: "About" });
-});
+app.get("/", blogController.blog_root);
+app.get("/blogs", blogController.blog_home);
+app.get("/about", blogController.blog_about);
+app.get("/blogs/create", blogController.blog_create_get);
+app.post("/blogs/create", blogController.blog_create_post);
+app.get("/blogs/:id", blogController.blog_details);
+app.delete("/blogs/:id", blogController.blog_delete);
+app.get("/blogs/edit/:id", blogController.blog_edit_get);
+app.patch("/blogs/edit/:id", blogController.blog_edit_patch);
 
 // 404 page
 app.use((req, res) => {
