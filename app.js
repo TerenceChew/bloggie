@@ -22,6 +22,7 @@ app.set("view engine", "ejs");
 
 // Middlewares
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // Routes
 app.get("/", (req, res) => {
@@ -76,6 +77,31 @@ app.delete("/blogs/:id", (req, res) => {
   Blog.findByIdAndDelete(id)
     .then(result => {
       res.json({ redirect: "/blogs" });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+});
+
+app.get("/blogs/edit/:id", (req, res) => {
+  const { id } = req.params;
+
+  Blog.findById(id)
+    .then(result => {
+      res.render("edit", { title: "Edit Blog", blog: result });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+});
+
+app.patch("/blogs/edit/:id", (req, res) => {
+  const { id } = req.params;
+  const newFields = req.body;
+
+  Blog.findByIdAndUpdate(id, newFields)
+    .then(result => {
+      res.json({ redirect: `/blogs/${id}` });
     })
     .catch(err => {
       console.log(err);

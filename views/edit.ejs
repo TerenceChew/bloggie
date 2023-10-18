@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("./partials/head.ejs") %>
+<body>
+  <%- include("./partials/header.ejs") %>
+
+  <main>
+    <form class="form-edit-blog">
+      <label for="title">Blog Title:</label>
+      <input id="title" type="text" name="title" required value="<%= blog.title %>">
+
+      <label for="body">Blog Body:</label>
+      <textarea id="body" name="body" required><%= blog.body %></textarea>
+
+      <button class="form-btn submit-edit-btn" type="button">Submit</button>
+    </form>
+  </main>
+  
+  <%- include("./partials/footer.ejs") %>
+
+  <script>
+    const submitEditBtn = document.querySelector(".submit-edit-btn");
+    const form = document.querySelector(".form-edit-blog");
+
+    submitEditBtn.addEventListener("click", (e) => {
+      const endpoint = `/blogs/edit/<%= blog._id %>`;
+      const formData = new FormData(form);
+      const body = {};
+
+      for (const [key, value] of formData) {
+        body[key] = value;
+      }
+
+      fetch(endpoint, {
+        method: "PATCH",
+        body: JSON.stringify(body),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .then(response => response.json())
+      .then(data => window.location.href = data.redirect)
+      .catch(console.log);
+    });
+  </script>
+</body>
+</html>

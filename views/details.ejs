@@ -12,6 +12,9 @@
       <div class="blog-content">
         <%= blog.body %>
       </div>
+      <button class="edit-btn">
+        <a href="/blogs/edit/<%= blog._id %>">EDIT</a>
+      </button>
       <button class="delete-btn" data-blog-id="<%= blog._id %>">DELETE</button>
     </div>
   </main>
