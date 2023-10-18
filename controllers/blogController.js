@@ -1,9 +1,5 @@
 const Blog = require("../models/blog");
 
-const blog_root = (req, res) => {
-  res.redirect("/blogs");
-};
-
 const blog_home = (req, res) => {
   Blog.find()
     .sort({ createdAt: -1 })
@@ -13,10 +9,6 @@ const blog_home = (req, res) => {
     .catch(err => {
       console.log(err);
     });
-};
-
-const blog_about = (req, res) => {
-  res.render("about", { title: "About" });
 };
 
 const blog_create_get = (req, res) => {
@@ -88,9 +80,7 @@ const blog_edit_patch = (req, res) => {
 };
 
 module.exports = {
-  blog_root,
   blog_home,
-  blog_about,
   blog_create_get,
   blog_create_post,
   blog_details,

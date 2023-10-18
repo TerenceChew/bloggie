@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const blogController = require("./controllers/blogController");
+const blogRoutes = require("./routes/blogRoutes");
 
 // App & database setup
 const app = express();
@@ -25,15 +25,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Routes
-app.get("/", blogController.blog_root);
-app.get("/blogs", blogController.blog_home);
-app.get("/about", blogController.blog_about);
-app.get("/blogs/create", blogController.blog_create_get);
-app.post("/blogs/create", blogController.blog_create_post);
-app.get("/blogs/:id", blogController.blog_details);
-app.delete("/blogs/:id", blogController.blog_delete);
-app.get("/blogs/edit/:id", blogController.blog_edit_get);
-app.patch("/blogs/edit/:id", blogController.blog_edit_patch);
+app.get("/", (req, res) => {
+  res.redirect("/blogs");
+});
+
+app.get("/about", (req, res) => {
+  res.render("about", { title: "About" });
+});
+
+app.use("/blogs", blogRoutes);
 
 // 404 page
 app.use((req, res) => {
