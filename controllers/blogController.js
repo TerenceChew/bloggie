@@ -2,7 +2,7 @@ const Blog = require("../models/blog");
 
 const blog_home = (req, res) => {
   Blog.find()
-    .sort({ createdAt: -1 })
+    .sort({ updatedAt: -1 })
     .then(result => {
       res.render("index", { title: "Home", blogs: result });
     })
