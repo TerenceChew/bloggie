@@ -5,14 +5,16 @@
   <%- include("./partials/header.ejs") %>
 
   <main>
-    <form class="form-edit-blog">
+    <h2>Edit Blog</h2>
+    
+    <form class="form-edit-blog flex-center">
       <label for="title">Blog Title:</label>
       <input id="title" type="text" name="title" required value="<%= blog.title %>">
 
       <label for="body">Blog Body:</label>
       <textarea id="body" name="body" required><%= blog.body %></textarea>
 
-      <button class="form-btn submit-edit-btn" type="button">Submit</button>
+      <button class="form-btn submit-edit-btn btn" type="button">Submit</button>
     </form>
   </main>
   

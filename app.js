@@ -20,6 +20,9 @@ mongoose
 // View engine setup
 app.set("view engine", "ejs");
 
+// Static files
+app.use(express.static("public"));
+
 // Middlewares
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

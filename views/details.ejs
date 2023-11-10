@@ -5,17 +5,20 @@
   <%- include("./partials/header.ejs") %>
   
   <main>
-    <div class="blog-detail">
+    <h2>Blog Details</h2>
+    
+    <div class="blog-detail flex-center">
       <h2 class="blog-title">
         <%= blog.title %>
       </h2>
       <div class="blog-content">
         <%= blog.body %>
       </div>
-      <button class="edit-btn">
-        <a href="/blogs/edit/<%= blog._id %>">EDIT</a>
-      </button>
-      <button class="delete-btn" data-blog-id="<%= blog._id %>">DELETE</button>
+      <div class="btn-container flex-center">
+        <a class="edit-btn btn flex-center" href="/blogs/edit/<%= blog._id %>">EDIT</a>
+        
+        <button class="delete-btn btn" data-blog-id="<%= blog._id %>">DELETE</button>
+      </div>
     </div>
   </main>
 
