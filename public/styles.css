@@ -124,13 +124,16 @@ main h2 {
   height: 400px;
   flex-direction: column;
   gap: 5px;
+  padding: 20px;
   background-color: var(--bg-color-3);
   border-radius: 5px;
 }
 
 :is(.form-create-blog, .form-edit-blog ) :is(input, textarea) {
   width: 250px;
+  max-width: 85%;
   height: 2rem;
+  max-height: 55%;
   margin-bottom: 15px;
   padding: 2px 5px;
 }
