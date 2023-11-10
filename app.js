@@ -4,7 +4,7 @@ const blogRoutes = require("./routes/blogRoutes");
 
 // App & database setup
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const dbURI =
   "mongodb+srv://terencecws:test123@cluster0.82suigq.mongodb.net/bloggie?retryWrites=true&w=majority";
 
